@@ -1,0 +1,10 @@
+###
+GET http://localhost:3002
+
+###
+POST http://localhost:3002/upload-stl-base64
+Content-Type: application/json
+
+{
+  "message": "Hello World"
+}
