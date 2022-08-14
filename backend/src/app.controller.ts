@@ -30,7 +30,7 @@ export class AppController {
     return {
       result: 'uploaded',
       orphan: `${uuid_filename}.stl`,
-      orphan_url: `http://localhost:3000/public/${uuid_filename}.stl`,
+      orphan_url: `http://localhost:3001/api/public/${uuid_filename}.stl`,
     };
   }
 
