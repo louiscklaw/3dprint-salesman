@@ -11,7 +11,7 @@ import {useFormik} from 'formik'
 import axios from 'axios' 
 import Quantity from '../components/Quantity'
 import UploadStl from '../components/UploadStl';
-import PreviewStl from '../components/PreviewStl';
+// import PreviewStl from '../components/PreviewStl';
 
 import TranslateIcon from '@mui/icons-material/Translate';
 
@@ -51,7 +51,7 @@ export default function Index() {
           <Grid item xs={4}>
             upload stl file 
             upload thingiverse link
-            <PreviewStl url={preview_stl_url} />
+            {/* <PreviewStl url={preview_stl_url} /> */}
             <UploadStl formik={formik}/>
           </Grid>
 
