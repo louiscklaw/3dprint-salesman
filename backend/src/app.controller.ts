@@ -26,6 +26,10 @@ const convert = {
   inch: { mm: 25.4, cm: 2.54, inch: 1 },
 }
 
+function roundNearest5(num) {
+  return Math.round(num / 5) * 5
+}
+
 //function used for calculating volume
 function signedVolumeOfTriangle(p1, p2, p3) {
   var v321 = p3.x * p2.y * p1.z
@@ -35,6 +39,128 @@ function signedVolumeOfTriangle(p1, p2, p3) {
   var v213 = p2.x * p1.y * p3.z
   var v123 = p1.x * p2.y * p3.z
   return (-v321 + v231 + v312 - v132 - v213 + v123) / 6
+}
+
+function getPrintQuote(stl_file_path, quantity, infill, uuid_filename) {
+  var stl_buf = fs.readFileSync(stl_file_path)
+  var mesh = parseSTL(stl_buf)
+
+  var positions = mesh.positions
+  var objectPolygons = positions.length
+  // if (!objectPolygons > 0) {
+  if (false) {
+    res.send(JSON.stringify({ information: 'file appears to be empty' }))
+    return
+  }
+
+  let objectVolume = 0
+  let dimensionSet = { bottom: 0, top: 0, diff: 0 }
+  let dimensions = []
+  dimensions[0] = dimensionSet //x
+  dimensions[1] = dimensionSet //y
+  dimensions[2] = dimensionSet //z
+
+  for (var i = 0; i < objectPolygons; i += 3) {
+    let t1 = {}
+    t1.x = positions[i + 0][0]
+    t1.y = positions[i + 0][1]
+    t1.z = positions[i + 0][2]
+
+    let t2 = {}
+    t2.x = positions[i + 1][0]
+    t2.y = positions[i + 1][1]
+    t2.z = positions[i + 1][2]
+
+    let t3 = {}
+    t3.x = positions[i + 2][0]
+    t3.y = positions[i + 2][1]
+    t3.z = positions[i + 2][2]
+
+    //turn up the volume
+    objectVolume += signedVolumeOfTriangle(t1, t2, t3)
+
+    //get maximum vertex range to calculate bounding box
+    for (let j = 0; j < 3; j++) {
+      for (let k = 0; k < 3; k++) {
+        if (dimensions[j].top < positions[i + k][j]) {
+          dimensions[j].top = positions[i + k][j]
+        }
+        if (dimensions[j].bottom > positions[i + k][j]) {
+          dimensions[j].bottom = positions[i + k][j]
+        }
+      }
+    }
+  }
+
+  objectVolume = objectVolume * 0.001
+
+  //file passed all validation and was read,
+  // so now setting/getting runtime vars (if we'd fail the above then no need to do the below)
+  //collect additional passed/set vars
+  var clientFeedback = ''
+  var printer = req.body.printer
+  var unitChoice = 'mm'
+  var materialChoice = 'fdm'
+
+  //calculate object box against printbed
+  for (var i = 0; i < 3; i++) {
+    dimensions[i].diff = dimensions[i].top - dimensions[i].bottom
+  }
+
+  for (var i = 0; i < 3; i++) {
+    // var d[i].top-(d[i].bottom)
+    if (convert[unitChoice]['mm'] * dimensions[i].diff > printer[i]) {
+      clientFeedback +=
+        '<br>Object larger than print bed on dimension ' +
+        i +
+        ' (' +
+        convert[unitChoice]['mm'] * dimensions[i].diff +
+        'mm > ' +
+        printer[i] +
+        'mm)'
+    }
+  }
+
+  //cost calculation based on object
+  let chargeTotalPerUnit = objectVolume * 1.6 * infill
+  let chargeTotal = chargeTotalPerUnit * quantity
+
+  // apply minimum charge
+  chargeTotal = Math.max(20, chargeTotal)
+
+  // round to nearest 5 dollars
+  chargeTotal = roundNearest5(chargeTotal)
+
+  let { currencySymbol } = config
+
+  //add base charges
+  // chargeTotal += chargeTotal * chargeAddPercent //add percentage of cost charge
+  // chargeTotal += chargeAddBase //add base charge
+  // chargeTotal = chargeTotal.toFixed(2)
+
+  // stl price quote testing end
+  return {
+    result: 'uploaded',
+    orphan: `${uuid_filename}.stl`,
+    orphan_url: `http://localhost:3001/api/public/${uuid_filename}.stl`,
+    charge: {
+      quantity,
+      infill,
+      success: true,
+      // processInformation: 'file processed' + clientFeedback,
+      // processTimeMS: new Date() - timeStart,
+      // processServerFilename: filenameServer,
+      objectVolume: objectVolume,
+      objectPolygons: objectPolygons / 3,
+      objectVolumeUnits: objectVolume + ' ' + unitChoice + '<sup>3</sup>',
+      objectDimensionsMM: dimensions,
+      unitChoice: unitChoice,
+      // unitChoiceCost: currencySymbol + unitCharge,
+      // chargeAddBase: currencySymbol + chargeAddBase,
+      // chargeAddPercent: chargeAddPercent + '%',
+      chargeTotal: `${currencySymbol} ${chargeTotal}`,
+    },
+  }
 }
 
 @Controller()
@@ -49,126 +175,15 @@ export class AppController {
   @Post('/upload-stl-base64')
   @UseInterceptors(FileInterceptor('file'))
   async uploadStlDataUrl(@Body() body: any): Promise<object> {
-    let { stl_file } = body
+    const { stl_file, quantity, infill } = body
     const uuid_filename = uuidv4()
 
-    // console.log({ stl_file })
+    console.log({ body })
 
     const STL_FILE_PATH = `./public/${uuid_filename}.stl`
     await fs.writeFileSync(STL_FILE_PATH, stl_file, 'base64')
 
-    // stl price quote testing start
-
-    var stl_buf = fs.readFileSync(STL_FILE_PATH)
-    var mesh = parseSTL(stl_buf)
-
-    var positions = mesh.positions
-    var objectPolygons = positions.length
-    // if (!objectPolygons > 0) {
-    if (false) {
-      res.send(JSON.stringify({ information: 'file appears to be empty' }))
-      return
-    }
-
-    let objectVolume = 0
-    let dimensionSet = { bottom: 0, top: 0, diff: 0 }
-    let dimensions = []
-    dimensions[0] = dimensionSet //x
-    dimensions[1] = dimensionSet //y
-    dimensions[2] = dimensionSet //z
-
-    for (var i = 0; i < objectPolygons; i += 3) {
-      let t1 = {}
-      t1.x = positions[i + 0][0]
-      t1.y = positions[i + 0][1]
-      t1.z = positions[i + 0][2]
-
-      let t2 = {}
-      t2.x = positions[i + 1][0]
-      t2.y = positions[i + 1][1]
-      t2.z = positions[i + 1][2]
-
-      let t3 = {}
-      t3.x = positions[i + 2][0]
-      t3.y = positions[i + 2][1]
-      t3.z = positions[i + 2][2]
-
-      //turn up the volume
-      objectVolume += signedVolumeOfTriangle(t1, t2, t3)
-
-      //get maximum vertex range to calculate bounding box
-      for (let j = 0; j < 3; j++) {
-        for (let k = 0; k < 3; k++) {
-          if (dimensions[j].top < positions[i + k][j]) {
-            dimensions[j].top = positions[i + k][j]
-          }
-          if (dimensions[j].bottom > positions[i + k][j]) {
-            dimensions[j].bottom = positions[i + k][j]
-          }
-        }
-      }
-    }
-
-    objectVolume = objectVolume * 0.001
-
-    //file passed all validation and was read,
-    // so now setting/getting runtime vars (if we'd fail the above then no need to do the below)
-    //collect additional passed/set vars
-    var clientFeedback = ''
-    var printer = req.body.printer
-    var unitChoice = 'mm'
-    var materialChoice = 'fdm'
-
-    //calculate object box against printbed
-    for (var i = 0; i < 3; i++) {
-      dimensions[i].diff = dimensions[i].top - dimensions[i].bottom
-    }
-
-    for (var i = 0; i < 3; i++) {
-      // var d[i].top-(d[i].bottom)
-      if (convert[unitChoice]['mm'] * dimensions[i].diff > printer[i]) {
-        clientFeedback +=
-          '<br>Object larger than print bed on dimension ' +
-          i +
-          ' (' +
-          convert[unitChoice]['mm'] * dimensions[i].diff +
-          'mm > ' +
-          printer[i] +
-          'mm)'
-      }
-    }
-
-    //cost calculation based on object
-    var chargeTotal = 0
-    chargeTotal = objectVolume * 1.6
-    let { currencySymbol } = config
-
-    //add base charges
-    // chargeTotal += chargeTotal * chargeAddPercent //add percentage of cost charge
-    // chargeTotal += chargeAddBase //add base charge
-    // chargeTotal = chargeTotal.toFixed(2)
-
-    // stl price quote testing end
-    return {
-      result: 'uploaded',
-      orphan: `${uuid_filename}.stl`,
-      orphan_url: `http://localhost:3001/api/public/${uuid_filename}.stl`,
-      charge: {
-        success: true,
-        // processInformation: 'file processed' + clientFeedback,
-        // processTimeMS: new Date() - timeStart,
-        // processServerFilename: filenameServer,
-        objectVolume: objectVolume,
-        objectPolygons: objectPolygons / 3,
-        objectVolumeUnits: objectVolume + ' ' + unitChoice + '<sup>3</sup>',
-        objectDimensionsMM: dimensions,
-        unitChoice: unitChoice,
-        // unitChoiceCost: currencySymbol + unitCharge,
-        // chargeAddBase: currencySymbol + chargeAddBase,
-        // chargeAddPercent: chargeAddPercent + '%',
-        chargeTotal: `${currencySymbol} ${chargeTotal}`,
-      },
-    }
+    return getPrintQuote(STL_FILE_PATH, quantity, infill, uuid_filename)
   }
 
   // @Post('/upload_stl_base64')
