@@ -10,12 +10,7 @@ export default function Quantity({ formik }) {
   }
 
   return (
-    <Box
-      component="form"
-      sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
-      noValidate
-      autoComplete="off"
-    >
+    <Box sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }} noValidate autoComplete="off">
       <TextField
         id="Quantity"
         label="Quantity"

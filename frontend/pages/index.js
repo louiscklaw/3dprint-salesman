@@ -29,7 +29,7 @@ export default function Home() {
   const [preview_stl_url, setPreviewStlUrl] = React.useState(url)
 
   const formik = useFormik({
-    initialValues: { stl_file: '' },
+    initialValues: { stl_file: '', quantity: 1, infill: '25%' },
     onSubmit: async values => {},
   })
 
@@ -63,18 +63,21 @@ export default function Home() {
                     <UploadStl setPreviewStlUrl={setPreviewStlUrl} />
                   </Grid>
 
-                  {/* <Grid item xs={4}>
+                  <Grid item xs={4}>
                     choose your option
-                    <InfillSelect />
-                    <Quantity />
+                    <InfillSelect formik={formik} />
+                    <Quantity formik={formik} />
                     get quote
                     <Button onClick={formik.submitForm} variant={'contained'}>
                       Get Quote
                     </Button>
                     <Debug>拆扣 ? 最低消費 ?</Debug>
-                  </Grid> */}
+                  </Grid>
 
                   <Grid item xs={4}>
+                    <Box>
+                      <Typography variant="H6">print information</Typography>
+                    </Box>
                     <Button>Send Order</Button>
                   </Grid>
                 </Grid>
