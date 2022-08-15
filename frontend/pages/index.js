@@ -33,6 +33,9 @@ export default function Home() {
     onSubmit: async values => {},
   })
 
+  const [print_info, setPrintInfo] = useState()
+  const [quote_reply, setQuoteReply] = useState()
+
   const [isSSR, setIsSSR] = useState(true)
   useEffect(() => {
     setIsSSR(false)
@@ -78,6 +81,8 @@ export default function Home() {
                     <Box>
                       <Typography variant="H6">print information</Typography>
                     </Box>
+                    <Box>{print_info}</Box>
+
                     <Button>Send Order</Button>
                   </Grid>
                 </Grid>
