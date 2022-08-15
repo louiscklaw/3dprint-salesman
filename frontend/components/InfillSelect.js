@@ -5,15 +5,16 @@ import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import * as React from 'react'
 
-export default function InfillSelect({ formik }) {
+export default function InfillSelect({ infill, setInfill }) {
   return (
     <FormControl>
-      <FormLabel id="select-infill">Gender</FormLabel>
+      <FormLabel id="select-infill">Infill</FormLabel>
       <RadioGroup
         aria-labelledby="select-infill"
         defaultValue="25%"
         name="infill"
-        {...formik.getFieldProps('infill')}
+        value={infill}
+        onChange={setInfill}
       >
         <FormControlLabel value="15%" control={<Radio />} label="15%" />
         <FormControlLabel value="25%" control={<Radio />} label="25%" />

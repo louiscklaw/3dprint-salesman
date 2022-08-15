@@ -27,11 +27,12 @@ export default function Home() {
   const [preview_stl_url, setPreviewStlUrl] = React.useState(url)
   const [stl_base64, setStlBase64] = React.useState()
   const [quote_reply, setQuoteReply] = useState()
+  const [infill, setInfill] = useState('25%')
 
   const formik = useFormik({
     initialValues: { stl_file: '', quantity: 1, infill: '25%' },
     onSubmit: async values => {
-      let response = await axios.post('/api/upload-stl-base64', { stl_file: stl_base64 })
+      let response = await axios.post('/api/upload-stl-base64', { ...values, stl_file: stl_base64 })
       let { orphan_url } = response.data
       setPreviewStlUrl(orphan_url)
       setQuoteReply(response.data)
@@ -78,7 +79,7 @@ export default function Home() {
                     <Box>
                       <Typography variant={'body2'}>choose your option</Typography>
                     </Box>
-                    <InfillSelect formik={formik} />
+                    <InfillSelect infill={infill} setInfill={setInfill} />
                     <Quantity formik={formik} />
                     get quote
                     <Button onClick={formik.submitForm} variant={'contained'}>

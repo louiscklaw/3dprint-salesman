@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
+import { Typography } from '@mui/material'
 
 export default function Quantity({ formik }) {
   const handleChange = e => {
@@ -11,9 +12,9 @@ export default function Quantity({ formik }) {
 
   return (
     <Box sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }} noValidate autoComplete="off">
+      <Typography variant="body2">Quantity</Typography>
       <TextField
         id="Quantity"
-        label="Quantity"
         type="number"
         InputLabelProps={{ shrink: true }}
         variant="standard"
