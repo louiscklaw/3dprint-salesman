@@ -14,31 +14,34 @@ const UploadStlForm = ({ setPreviewStlUrl, stl_base64, setStlBase64 }) => {
   }
   return (
     <>
-      <Typography variant="body2">
-        /home/logic/_workspace/3dprint-salesman/test_stl/100_100_100.stl
-      </Typography>
-      <Button variant="contained" component="label">
-        <Typography variant="body2">Choose STL</Typography>
+      <Stack direction="column">
+        <Button variant="contained" component="label">
+          <Typography variant="body2">Choose STL</Typography>
 
-        <input
-          name="avatar"
-          accept="application/octet-stream"
-          id="contained-button-file"
-          type="file"
-          hidden
-          onChange={e => {
-            const fileReader = new FileReader()
-            fileReader.onload = () => {
-              if (fileReader.readyState === 2) {
-                setStlBase64(fileReader.result.split(',')[1])
+          <input
+            name="avatar"
+            accept="application/octet-stream"
+            id="contained-button-file"
+            type="file"
+            hidden
+            onChange={e => {
+              const fileReader = new FileReader()
+              fileReader.onload = () => {
+                if (fileReader.readyState === 2) {
+                  setStlBase64(fileReader.result.split(',')[1])
+                }
               }
-            }
-            fileReader.readAsDataURL(e.target.files[0])
-          }}
-        />
-      </Button>
+              fileReader.readAsDataURL(e.target.files[0])
+            }}
+          />
+        </Button>
 
-      {/* <Button onClick={handleUploadStl}>Upload</Button> */}
+        <Typography variant="body1">
+          /home/logic/_workspace/3dprint-salesman/test_stl/100_100_100.stl
+        </Typography>
+
+        {/* <Button onClick={handleUploadStl}>Upload</Button> */}
+      </Stack>
     </>
   )
 }

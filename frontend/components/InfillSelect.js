@@ -16,7 +16,7 @@ export default function InfillSelect({ formik, infill, setInfill }) {
         {...formik.getFieldProps('infill')}
       >
         <FormControlLabel value={0.15} control={<Radio />} label="15%" />
-        <FormControlLabel value={0.25} control={<Radio />} label="25%" />
+        <FormControlLabel value={0.25} control={<Radio />} label="25% (Recommended)" />
         <FormControlLabel value={0.5} control={<Radio />} label="50%" />
         <FormControlLabel value={1} control={<Radio />} label="100%" />
       </RadioGroup>

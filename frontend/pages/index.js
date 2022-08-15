@@ -19,6 +19,10 @@ import UploadStl from '../components/UploadStl'
 import PreviewStl from '../components/PreviewStl'
 import Debug from '../components/Debug'
 
+import MainTabPanel from '../components/MainTabPanel'
+import DeliverySelect from '../components/DeliverySelect'
+import UrgencySelect from '../components/UrgencySelect'
+
 const url = 'http://localhost:3001/api/public/0b66976c-4168-48ed-86b6-be5161609e7e.stl'
 
 export default function Home() {
@@ -55,8 +59,12 @@ export default function Home() {
           <title>Create Next App</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        helloworld
       </div>
+
+      <Box>
+        <MainTabPanel />
+      </Box>
+
       {!isSSR && (
         <>
           <form onSubmit={formik.handleSubmit}>
@@ -67,8 +75,8 @@ export default function Home() {
                 </IconButton>
 
                 <Grid container spacing={4}>
-                  <Grid item xs={4}>
-                    upload stl file upload thingiverse link
+                  <Grid item xs={4} container spacing={2}>
+                    <Typography variant="h6">upload stl file upload thingiverse link</Typography>
                     <PreviewStl preview_stl_url={preview_stl_url} />
                     <UploadStl
                       setPreviewStlUrl={setPreviewStlUrl}
@@ -77,28 +85,50 @@ export default function Home() {
                     />
                   </Grid>
 
-                  <Grid item xs={4}>
-                    <Box>
+                  <Grid item xs={4} container spacing={2}>
+                    <Grid item xs={12} container flexDirectino="column" spacing={2}>
                       <Typography variant={'body2'}>choose your option</Typography>
-                    </Box>
-                    <InfillSelect formik={formik} infill={infill} setInfill={setInfill} />
-                    <Quantity formik={formik} />
-                    get quote
-                    <Button onClick={formik.submitForm} variant={'contained'}>
-                      Get Quote
-                    </Button>
-                    <Debug>拆扣 ? 最低消費 ?</Debug>
+                    </Grid>
+
+                    <Grid item xs={12} container flexDirectino="column" spacing={2}>
+                      <InfillSelect formik={formik} infill={infill} setInfill={setInfill} />
+                    </Grid>
+
+                    <Grid item xs={12} container flexDirectino="column" spacing={2}>
+                      <Quantity formik={formik} />
+                    </Grid>
+
+                    <Grid item xs={12} container flexDirection="column" spacing={2}>
+                      <Typography variant="h6">交收方式 ?</Typography>
+                      <DeliverySelect formik={formik} />
+                    </Grid>
+                    <Grid item xs={12} container flexDirection="column" spacing={2}>
+                      <Typography variant="h6">有幾急 ?</Typography>
+                      <UrgencySelect formik={formik} />
+                    </Grid>
+
+                    <Grid item xs={12} container flexDirection="column" spacing={2}>
+                      <Grid item xs={12}>
+                        <Button onClick={formik.submitForm} variant={'contained'}>
+                          Get Quote
+                        </Button>
+                      </Grid>
+                    </Grid>
                   </Grid>
 
-                  <Grid item xs={4}>
+                  <Grid item xs={4} container spacing={3}>
+                    <Box>
+                      <Typography variant="h6">拆扣 ?</Typography>
+                      <Typography variant="h6"> 最低消費 ?</Typography>
+                    </Box>
                     <Box>
                       <Typography variant="H6">print information</Typography>
                     </Box>
-                    <Box>{print_info}</Box>
-                    <Box>
-                      <pre>{JSON.stringify(quote_reply, null, 2)}</pre>
-                    </Box>
                     <Button>Send Order</Button>
+
+                    <Debug>
+                      <pre>{JSON.stringify(quote_reply, null, 2)}</pre>
+                    </Debug>
                   </Grid>
                 </Grid>
 

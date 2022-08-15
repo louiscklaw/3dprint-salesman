@@ -9,7 +9,7 @@ export default function PreviewStl({ preview_stl_url }) {
 
   return (
     <>
-      <Box sx={{ width: '300px', height: '300px' }}>
+      <Box sx={{ width: '100%', height: '50vh' }}>
         Preview stl here
         <StlViewer
           style={{ top: 0, left: 0, width: '100%', height: '100%' }}
