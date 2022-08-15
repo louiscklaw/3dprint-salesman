@@ -2,6 +2,6 @@ remove-item -R -Force .next
 remove-item -R -Force node_modules
 
 # yarn --dev
-yarn
+npm i -d
 
-yarn dev
+npm run dev

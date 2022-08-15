@@ -1,15 +1,20 @@
 {
-  "name": "nextjs",
-  "version": "5.0.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    "prettier_file": "prettier --write \"./pages/**/*.{js,jsx}\"",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
+    "gitUpdate": "git add . && git commit -m\"update nextjs12-helloworld, \"",
+    "init_dev": "yarn --dev && yarn dev",
+    "clear": "rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-stl-viewer": "^2.1.2",
+    "three": "^0.132.2",
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
     "@emotion/server": "latest",
@@ -18,16 +23,13 @@
     "@mui/material": "latest",
     "axios": "^0.27.2",
     "formik": "^2.2.9",
-    "next": "latest",
     "nextjs-cors": "^2.1.1",
     "prop-types": "latest",
-    "react": "latest",
-    "react-div-100vh": "^0.7.0",
-    "react-dom": "latest",
-    "react-stl-viewer": "^2.1.2",
-    "three": "^0.132.2"
+    "react-div-100vh": "^0.7.0"
   },
   "devDependencies": {
+    "prettier": "latest",
+    "puppeteer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest"
   }
