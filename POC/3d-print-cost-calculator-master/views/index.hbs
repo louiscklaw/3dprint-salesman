@@ -1,0 +1,44 @@
+<h1>{{title}}</h1>
+
+<form ref='uploadForm'
+      id='uploadForm'
+      method='post'
+      encType="multipart/form-data">
+
+    <h3>Measurements</h3>
+    <input type="radio" id="unitsPick1" name="units" value="mm">
+    <label for="unitsPick1">MM</label>
+
+    <input type="radio" id="unitsPick2" name="units" value="cm" checked="checked">
+    <label for="unitsPick2">CM</label>
+
+    <input type="radio" id="unitsPick3" name="units" value="inch">
+    <label for="unitsPick3">Inches</label>
+
+    <h3>Material</h3>
+    <input type="radio" id="materialPick1" name="material" value="fdm" checked="checked">
+    <label for="materialPick1">FDM</label>
+
+    <input type="radio" id="materialPick2" name="material" value="sda" >
+    <label for="materialPick1">SDA</label>
+
+    <input type="radio" id="materialPick3" name="material" value="polyjet">
+    <label for="materialPick1">Polyjet</label>
+
+    <h3>STL file</h3>
+    <input type="file" id="fileObject"  name="fileObject" />
+    <!-- <input id="submitButton" type='submit' value='upload' /> -->
+</form>
+
+<div>
+    <h1 id="jobCost"></h1>
+</div>
+
+<div id="post-results-container">
+
+    <div class="data data-colour">
+
+    </div>
+</div>
+
+<script type="text/javascript" src="/javascripts/uploadhandler.js"></script>
