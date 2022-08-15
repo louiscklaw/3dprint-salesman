@@ -1,12 +1,11 @@
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import * as React from 'react';
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import FormLabel from '@mui/material/FormLabel'
+import Radio from '@mui/material/Radio'
+import RadioGroup from '@mui/material/RadioGroup'
+import * as React from 'react'
 
-
-export default function InfillSelect({formik}) {
+export default function InfillSelect({ formik }) {
   return (
     <FormControl>
       <FormLabel id="select-infill">Gender</FormLabel>
@@ -22,5 +21,5 @@ export default function InfillSelect({formik}) {
         <FormControlLabel value="100%" control={<Radio />} label="100%" />
       </RadioGroup>
     </FormControl>
-  );
+  )
 }
