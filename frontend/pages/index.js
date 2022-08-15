@@ -97,22 +97,6 @@ export default function Home() {
                 <Copyright />
               </Stack>
             </form>
-            <StlViewer
-              style={style}
-              orbitControls
-              shadows
-              showAxes
-              floorProps={{ gridWidth: 300 }}
-              url={url}
-              modelProps={{
-                positionX: 150,
-                positionY: 150,
-                scale: 1,
-                color: '#008675',
-                ref,
-              }}
-              onFinishLoading={console.log}
-            />
           </Container>
         </>
       )}

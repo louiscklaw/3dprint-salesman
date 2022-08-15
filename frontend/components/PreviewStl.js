@@ -11,6 +11,7 @@ const style = {
 
 export default function PreviewStl({ preview_stl_url }) {
   const ref = useRef()
+  const url = 'https://storage.googleapis.com/ucloud-v3/ccab50f18fb14c91ccca300a.stl'
 
   return (
     <>
@@ -22,7 +23,7 @@ export default function PreviewStl({ preview_stl_url }) {
           shadows
           showAxes
           floorProps={{ gridWidth: 300 }}
-          url={preview_stl_url}
+          url={url}
           modelProps={{
             positionX: 150,
             positionY: 150,
