@@ -75,7 +75,7 @@ export default function Home() {
                 <Grid container spacing={4}>
                   <Grid item xs={4}>
                     upload stl file upload thingiverse link
-                    <PreviewStl url={preview_stl_url} />
+                    <PreviewStl preview_stl_url={url} />
                     <UploadStl formik={formik} />
                   </Grid>
 
