@@ -5,17 +5,14 @@ import { StlViewer } from 'react-stl-viewer'
 export default function PreviewStl({ preview_stl_url }) {
   const ref = useRef()
 
+  if (!preview_stl_url) return <>please load a stl file to preview</>
+
   return (
     <>
       <Box sx={{ width: '300px', height: '300px' }}>
         Preview stl here
         <StlViewer
-          style={{
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-          }}
+          style={{ top: 0, left: 0, width: '100%', height: '100%' }}
           orbitControls
           shadows
           showAxes
