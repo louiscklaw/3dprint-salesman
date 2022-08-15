@@ -16,6 +16,7 @@ import Copyright from '../src/Copyright'
 import InfillSelect from '../components/InfillSelect'
 import Quantity from '../components/Quantity'
 import UploadStl from '../components/UploadStl'
+import PreviewStl from '../components/PreviewStl'
 
 const url = 'https://storage.googleapis.com/ucloud-v3/ccab50f18fb14c91ccca300a.stl'
 
@@ -31,9 +32,7 @@ export default function Home() {
   const height = use100vh()
 
   const [upload_result, setUploadResult] = React.useState()
-  const [preview_stl_url, setPreviewStlUrl] = React.useState(
-    'http://localhost:3001/api/public/4cb6087b-d66b-4681-b780-be316a2101a4.stl',
-  )
+  const [preview_stl_url, setPreviewStlUrl] = React.useState(url)
 
   let formik = useFormik({
     initialValues: {
