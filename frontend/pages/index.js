@@ -36,6 +36,11 @@ export default function Index() {
     }
   })
 
+  const [isSSR, setIsSSR] = React.useState(true)
+  React.useEffect(() => {
+    setIsSSR(false)
+  }, [])
+
 
   return (
     <Container maxWidth="xl" sx={{height}}>
@@ -47,33 +52,34 @@ export default function Index() {
           <TranslateIcon />
         </IconButton>
 
+        {!isSSR && <>
         <Grid container spacing={4} >
-          <Grid item xs={4}>
-            upload stl file 
-            upload thingiverse link
-            {/* <PreviewStl url={preview_stl_url} /> */}
-            <UploadStl formik={formik}/>
-          </Grid>
-
-          <Grid item xs={4}>
-            choose your option
-            <InfillSelect formik={formik} />
-            <Quantity formik={formik} />
-            get quote
-
-            <Button onClick={formik.submitForm} variant={'contained'}>Get Quote</Button>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Button>Send Order</Button>
-          </Grid>
+        <Grid item xs={4}>
+          upload stl file 
+          upload thingiverse link
+          {/* <PreviewStl url={preview_stl_url} /> */}
+          <UploadStl formik={formik}/>
         </Grid>
 
-        <Typography variant="h4" component="h1" gutterBottom>
-          Next.js example
-        </Typography>
-        
+        <Grid item xs={4}>
+          choose your option
+          <InfillSelect formik={formik} />
+          <Quantity formik={formik} />
+          get quote
 
+          <Button onClick={formik.submitForm} variant={'contained'}>Get Quote</Button>
+        </Grid>
+
+        <Grid item xs={4}>
+          <Button>Send Order</Button>
+        </Grid>
+      </Grid>
+
+
+      </>}
+      <Typography variant="h4" component="h1" gutterBottom>
+        Next.js example
+      </Typography>
         <Copyright />
         </Stack>
       </form>
