@@ -17,6 +17,7 @@ import InfillSelect from '../components/InfillSelect'
 import Quantity from '../components/Quantity'
 import UploadStl from '../components/UploadStl'
 import PreviewStl from '../components/PreviewStl'
+import Debug from '../components/Debug'
 
 const url = 'https://storage.googleapis.com/ucloud-v3/ccab50f18fb14c91ccca300a.stl'
 
@@ -87,6 +88,7 @@ export default function Home() {
                     <Button onClick={formik.submitForm} variant={'contained'}>
                       Get Quote
                     </Button>
+                    <Debug>拆扣 ? 最低消費 ?</Debug>
                   </Grid>
 
                   <Grid item xs={4}>
