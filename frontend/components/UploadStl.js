@@ -5,7 +5,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera'
 import Stack from '@mui/material/Stack'
 import { useFormik } from 'formik'
 
-const SignupForm = () => {
+const UploadStlForm = () => {
   const formik = useFormik({
     initialValues: {
       firstName: '',
@@ -42,7 +42,7 @@ const SignupForm = () => {
         onChange={formik.handleChange}
         value={formik.values.email}
       />
-      <button type="submit">Submit</button>
+      <Button type="submit">Upload</Button>
     </form>
   )
 }
@@ -65,7 +65,7 @@ export default function UploadStl() {
 
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
-      <SignupForm />
+      <UploadStlForm />
     </Stack>
   )
 }
