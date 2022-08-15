@@ -35,20 +35,6 @@ export default function Home() {
   const [upload_result, setUploadResult] = React.useState()
   const [preview_stl_url, setPreviewStlUrl] = React.useState(url)
 
-  let formik = useFormik({
-    initialValues: {
-      avatar: '',
-      infill: '25%',
-      quantity: 1,
-    },
-    onSubmit: async values => {
-      console.log({ values })
-      let response = await axios.post('/api/upload-stl-base64', values)
-      setUploadResult(response.data)
-      console.log(response.data)
-    },
-  })
-
   const [isSSR, setIsSSR] = useState(true)
 
   useEffect(() => {
@@ -67,38 +53,37 @@ export default function Home() {
       {!isSSR && (
         <>
           <Container maxWidth="xl" sx={{ height }}>
-            <form onSubmit={formik.handleSubmit}>
-              <Stack direction="column">
-                <IconButton color="primary" aria-label="add to shopping cart">
-                  <TranslateIcon />
-                </IconButton>
+            <Stack direction="column">
+              <IconButton color="primary" aria-label="add to shopping cart">
+                <TranslateIcon />
+              </IconButton>
 
-                <Grid container spacing={4}>
-                  <Grid item xs={4}>
-                    upload stl file upload thingiverse link
-                    <PreviewStl preview_stl_url={url} />
-                    <UploadStl formik={formik} />
-                  </Grid>
-
-                  <Grid item xs={4}>
-                    choose your option
-                    <InfillSelect formik={formik} />
-                    <Quantity formik={formik} />
-                    get quote
-                    <Button onClick={formik.submitForm} variant={'contained'}>
-                      Get Quote
-                    </Button>
-                    <Debug>拆扣 ? 最低消費 ?</Debug>
-                  </Grid>
-
-                  <Grid item xs={4}>
-                    <Button>Send Order</Button>
-                  </Grid>
+              <Grid container spacing={4}>
+                <Grid item xs={4}>
+                  upload stl file upload thingiverse link
+                  <PreviewStl preview_stl_url={url} />
+                  <UploadStl />
                 </Grid>
 
-                <Copyright />
-              </Stack>
-            </form>
+                {/* 
+                <Grid item xs={4}>
+                  choose your option
+                  <InfillSelect formik={formik} />
+                  <Quantity formik={formik} />
+                  get quote
+                  <Button onClick={formik.submitForm} variant={'contained'}>
+                    Get Quote
+                  </Button>
+                  <Debug>拆扣 ? 最低消費 ?</Debug>
+                </Grid> */}
+
+                <Grid item xs={4}>
+                  <Button>Send Order</Button>
+                </Grid>
+              </Grid>
+
+              <Copyright />
+            </Stack>
           </Container>
         </>
       )}
