@@ -21,13 +21,6 @@ import Debug from '../components/Debug'
 
 const url = 'http://localhost:3001/api/public/0b66976c-4168-48ed-86b6-be5161609e7e.stl'
 
-const style = {
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-}
-
 export default function Home() {
   const ref = useRef()
   const height = use100vh()
@@ -35,8 +28,12 @@ export default function Home() {
   const [upload_result, setUploadResult] = React.useState()
   const [preview_stl_url, setPreviewStlUrl] = React.useState(url)
 
-  const [isSSR, setIsSSR] = useState(true)
+  const formik = useFormik({
+    initialValues: { stl_file: '' },
+    onSubmit: async values => {},
+  })
 
+  const [isSSR, setIsSSR] = useState(true)
   useEffect(() => {
     setIsSSR(false)
   }, [])
@@ -52,39 +49,41 @@ export default function Home() {
       </div>
       {!isSSR && (
         <>
-          <Container maxWidth="xl" sx={{ height }}>
-            <Stack direction="column">
-              <IconButton color="primary" aria-label="add to shopping cart">
-                <TranslateIcon />
-              </IconButton>
+          <form onSubmit={formik.handleSubmit}>
+            <Container maxWidth="xl" sx={{ height }}>
+              <Stack direction="column">
+                <IconButton color="primary" aria-label="add to shopping cart">
+                  <TranslateIcon />
+                </IconButton>
 
-              <Grid container spacing={4}>
-                <Grid item xs={4}>
-                  upload stl file upload thingiverse link
-                  <PreviewStl preview_stl_url={preview_stl_url} />
-                  <UploadStl setPreviewStlUrl={setPreviewStlUrl} />
+                <Grid container spacing={4}>
+                  <Grid item xs={4}>
+                    upload stl file upload thingiverse link
+                    <PreviewStl preview_stl_url={preview_stl_url} />
+                    <UploadStl setPreviewStlUrl={setPreviewStlUrl} />
+                  </Grid>
+
+                  {/* <Grid item xs={4}>
+                    choose your option
+                    <InfillSelect />
+                    <Quantity />
+                    get quote
+                    <Button onClick={formik.submitForm} variant={'contained'}>
+                      Get Quote
+                    </Button>
+                    <Debug>拆扣 ? 最低消費 ?</Debug>
+                  </Grid> */}
+
+                  <Grid item xs={4}>
+                    <Button>Send Order</Button>
+                  </Grid>
                 </Grid>
 
-                {/* 
-                <Grid item xs={4}>
-                  choose your option
-                  <InfillSelect formik={formik} />
-                  <Quantity formik={formik} />
-                  get quote
-                  <Button onClick={formik.submitForm} variant={'contained'}>
-                    Get Quote
-                  </Button>
-                  <Debug>拆扣 ? 最低消費 ?</Debug>
-                </Grid> */}
-
-                <Grid item xs={4}>
-                  <Button>Send Order</Button>
-                </Grid>
-              </Grid>
-
-              <Copyright />
-            </Stack>
-          </Container>
+                <Copyright />
+              </Stack>
+            </Container>
+          </form>
+          <pre>{JSON.stringify(formik.values, null, 2)}</pre>
         </>
       )}
     </>
