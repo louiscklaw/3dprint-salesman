@@ -6,9 +6,7 @@ import Stack from '@mui/material/Stack'
 import { useFormik } from 'formik'
 import axios from 'axios'
 
-const UploadStlForm = ({ setPreviewStlUrl }) => {
-  const [stl_base64, setStlBase64] = React.useState()
-
+const UploadStlForm = ({ setPreviewStlUrl, stl_base64, setStlBase64 }) => {
   const handleUploadStl = async () => {
     let response = await axios.post('/api/upload-stl-base64', { stl_file: stl_base64 })
     console.log(response.data)
@@ -40,22 +38,19 @@ const UploadStlForm = ({ setPreviewStlUrl }) => {
         />
       </Button>
 
-      <Button onClick={handleUploadStl}>Upload</Button>
+      {/* <Button onClick={handleUploadStl}>Upload</Button> */}
     </>
   )
 }
 
-export default function UploadStl({ setPreviewStlUrl }) {
-  const [avatarPreview, setAvatarPreview] = React.useState(null)
-  const [field_value, setFieldValue] = React.useState(null)
-
-  const handleUploadStl = e => {
-    formik.submitForm(e)
-  }
-
+export default function UploadStl({ setPreviewStlUrl, stl_base64, setStlBase64 }) {
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
-      <UploadStlForm setPreviewStlUrl={setPreviewStlUrl} />
+      <UploadStlForm
+        setPreviewStlUrl={setPreviewStlUrl}
+        stl_base64={stl_base64}
+        setStlBase64={setStlBase64}
+      />
     </Stack>
   )
 }

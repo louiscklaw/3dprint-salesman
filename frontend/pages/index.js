@@ -22,19 +22,23 @@ import Debug from '../components/Debug'
 const url = 'http://localhost:3001/api/public/0b66976c-4168-48ed-86b6-be5161609e7e.stl'
 
 export default function Home() {
-  const ref = useRef()
   const height = use100vh()
 
-  const [upload_result, setUploadResult] = React.useState()
   const [preview_stl_url, setPreviewStlUrl] = React.useState(url)
+  const [stl_base64, setStlBase64] = React.useState()
+  const [quote_reply, setQuoteReply] = useState()
 
   const formik = useFormik({
     initialValues: { stl_file: '', quantity: 1, infill: '25%' },
-    onSubmit: async values => {},
+    onSubmit: async values => {
+      let response = await axios.post('/api/upload-stl-base64', { stl_file: stl_base64 })
+      let { orphan_url } = response.data
+      setPreviewStlUrl(orphan_url)
+      setQuoteReply(response.data)
+    },
   })
 
   const [print_info, setPrintInfo] = useState()
-  const [quote_reply, setQuoteReply] = useState()
 
   const [isSSR, setIsSSR] = useState(true)
   useEffect(() => {
@@ -63,11 +67,17 @@ export default function Home() {
                   <Grid item xs={4}>
                     upload stl file upload thingiverse link
                     <PreviewStl preview_stl_url={preview_stl_url} />
-                    <UploadStl setPreviewStlUrl={setPreviewStlUrl} />
+                    <UploadStl
+                      setPreviewStlUrl={setPreviewStlUrl}
+                      stl_base64={stl_base64}
+                      setStlBase64={setStlBase64}
+                    />
                   </Grid>
 
                   <Grid item xs={4}>
-                    choose your option
+                    <Box>
+                      <Typography variant={'body2'}>choose your option</Typography>
+                    </Box>
                     <InfillSelect formik={formik} />
                     <Quantity formik={formik} />
                     get quote
@@ -82,7 +92,9 @@ export default function Home() {
                       <Typography variant="H6">print information</Typography>
                     </Box>
                     <Box>{print_info}</Box>
-
+                    <Box>
+                      <pre>{JSON.stringify(quote_reply, null, 2)}</pre>
+                    </Box>
                     <Button>Send Order</Button>
                   </Grid>
                 </Grid>
