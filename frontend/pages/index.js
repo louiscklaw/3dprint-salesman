@@ -19,7 +19,7 @@ import UploadStl from '../components/UploadStl'
 import PreviewStl from '../components/PreviewStl'
 import Debug from '../components/Debug'
 
-const url = 'https://storage.googleapis.com/ucloud-v3/ccab50f18fb14c91ccca300a.stl'
+const url = 'http://localhost:3001/api/public/0b66976c-4168-48ed-86b6-be5161609e7e.stl'
 
 const style = {
   top: 0,
@@ -61,8 +61,8 @@ export default function Home() {
               <Grid container spacing={4}>
                 <Grid item xs={4}>
                   upload stl file upload thingiverse link
-                  <PreviewStl preview_stl_url={url} />
-                  <UploadStl />
+                  <PreviewStl preview_stl_url={preview_stl_url} />
+                  <UploadStl setPreviewStlUrl={setPreviewStlUrl} />
                 </Grid>
 
                 {/* 
