@@ -10,7 +10,7 @@
     "docker_migrate": "docker-compose exec -it backend yarn migrate",
     "docker_seed": "yarn docker_dev exec -it api yarn seed",
     "gitSync": "git fetch --all && git stash && git pull --all && git stash pop",
-    "gitUpdate": "git add . && git commit -m \"update hello-truthy,\" && yarn gitSync && git push",
+    "gitUpdate": "git add . && git commit -m \"update hello-truthy,\" && git push",
     "format": "prettier --loglevel warn --write \"**/*.{js,css,html,jsx,tsx,ts,json,sh,yml}\"",
     "docker_compose": "docker compose -f docker-compose.dev.yml",
     "docker_up": "scripts/build_dev.sh",
