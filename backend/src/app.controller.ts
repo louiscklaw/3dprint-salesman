@@ -41,7 +41,7 @@ function signedVolumeOfTriangle(p1, p2, p3) {
   return (-v321 + v231 + v312 - v132 - v213 + v123) / 6
 }
 
-function getPrintQuote(stl_file_path, quantity, infill, uuid_filename) {
+function getPrintQuote(stl_file_path, quantity, infill, uuid_filename, urgency) {
   var stl_buf = fs.readFileSync(stl_file_path)
   var mesh = parseSTL(stl_buf)
 
@@ -146,6 +146,7 @@ function getPrintQuote(stl_file_path, quantity, infill, uuid_filename) {
     charge: {
       quantity,
       infill,
+      urgency,
       success: true,
       // processInformation: 'file processed' + clientFeedback,
       // processTimeMS: new Date() - timeStart,
@@ -175,7 +176,7 @@ export class AppController {
   @Post('/upload-stl-base64')
   @UseInterceptors(FileInterceptor('file'))
   async uploadStlDataUrl(@Body() body: any): Promise<object> {
-    const { stl_file, quantity, infill } = body
+    const { stl_file, quantity, infill, urgency } = body
     const uuid_filename = uuidv4()
 
     console.log({ body })
@@ -183,7 +184,7 @@ export class AppController {
     const STL_FILE_PATH = `./public/${uuid_filename}.stl`
     await fs.writeFileSync(STL_FILE_PATH, stl_file, 'base64')
 
-    return getPrintQuote(STL_FILE_PATH, quantity, infill, uuid_filename)
+    return getPrintQuote(STL_FILE_PATH, quantity, infill, uuid_filename, urgency)
   }
 
   // @Post('/upload_stl_base64')

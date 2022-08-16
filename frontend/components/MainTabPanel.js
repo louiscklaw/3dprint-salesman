@@ -1,25 +1,21 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import * as React from 'react'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import PhoneIcon from '@mui/icons-material/Phone'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import PersonPinIcon from '@mui/icons-material/PersonPin'
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props
+export default function MainTabPanel({ active_tab, setActiveTab }) {
+  const [value, setValue] = React.useState(0)
+
+  const handleChange = (event, newValue) => {
+    setActiveTab(newValue)
+  }
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
+    <Tabs value={active_tab} onChange={handleChange} aria-label="icon label tabs example">
+      <Tab icon={<PhoneIcon />} label="Quote" />
+      <Tab icon={<FavoriteIcon />} label="Reply" />
+    </Tabs>
   )
 }
-
-export default TabPanel
