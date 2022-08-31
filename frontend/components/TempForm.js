@@ -1,4 +1,4 @@
-;<form onSubmit={formik.handleSubmit}>
+<form onSubmit={formik.handleSubmit}>
   <Box display="flex" textAlign="center" justifyContent="center" flexDirection="column">
     {/* <ImageAvatar size='md' src={avatarPreview || user?.avatar} /> */}
 
@@ -13,18 +13,18 @@
         type="file"
         hidden
         onChange={e => {
-          const fileReader = new FileReader()
+          const fileReader = new FileReader();
           fileReader.onload = () => {
             if (fileReader.readyState === 2) {
-              formik.setFieldValue('stl_file', fileReader.result.split(',')[1])
-              setAvatarPreview(fileReader.result)
+              formik.setFieldValue('stl_file', fileReader.result.split(',')[1]);
+              setAvatarPreview(fileReader.result);
             }
-          }
-          fileReader.readAsDataURL(e.target.files[0])
+          };
+          fileReader.readAsDataURL(e.target.files[0]);
         }}
       />
     </Button>
 
     <Button type="submit">Upload</Button>
   </Box>
-</form>
+</form>;

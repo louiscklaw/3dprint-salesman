@@ -1,11 +1,11 @@
-import { Box } from '@mui/material'
-import { useRef } from 'react'
-import { StlViewer } from 'react-stl-viewer'
+import { Box } from '@mui/material';
+import { useRef } from 'react';
+import { StlViewer } from 'react-stl-viewer';
 
 export default function PreviewStl({ preview_stl_url }) {
-  const ref = useRef()
+  const ref = useRef();
 
-  if (!preview_stl_url) return <>please load a stl file to preview</>
+  if (!preview_stl_url) return <>please load a stl file to preview</>;
 
   return (
     <>
@@ -29,5 +29,5 @@ export default function PreviewStl({ preview_stl_url }) {
         />
       </Box>
     </>
-  )
+  );
 }

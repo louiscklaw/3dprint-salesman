@@ -1,3 +1,3 @@
 export default function QuoteTab() {
-  return <>Quote Tab</>
+  return <>Quote Tab</>;
 }

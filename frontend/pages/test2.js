@@ -1,61 +1,61 @@
-import Head from 'next/head'
-import { useEffect, useRef, useState } from 'react'
-import React from 'react'
+import Head from 'next/head';
+import { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
-import { StlViewer } from 'react-stl-viewer'
-import { Container, Grid } from '@mui/material'
-import { Typography, IconButton } from '@mui/material'
-import { Box, Button, Stack } from '@mui/material'
-import TranslateIcon from '@mui/icons-material/Translate'
-import { useFormik } from 'formik'
-import axios from 'axios'
-import { use100vh } from 'react-div-100vh'
+import { StlViewer } from 'react-stl-viewer';
+import { Container, Grid } from '@mui/material';
+import { Typography, IconButton } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
+import TranslateIcon from '@mui/icons-material/Translate';
+import { useFormik } from 'formik';
+import axios from 'axios';
+import { use100vh } from 'react-div-100vh';
 
-import Copyright from '../src/Copyright'
+import Copyright from '../src/Copyright';
 
-import InfillSelect from '../components/InfillSelect'
-import Quantity from '../components/Quantity'
-import UploadStl from '../components/UploadStl'
-import PreviewStl from '../components/PreviewStl'
-import Debug from '../components/Debug'
+import InfillSelect from '../components/InfillSelect';
+import Quantity from '../components/Quantity';
+import UploadStl from '../components/UploadStl';
+import PreviewStl from '../components/PreviewStl';
+import Debug from '../components/Debug';
 
-import MainTabPanel from '../components/MainTabPanel'
-import DeliverySelect from '../components/DeliverySelect'
-import UrgencySelect from '../components/UrgencySelect'
-import ReplyTab from './ReplyTab'
+import MainTabPanel from '../components/MainTabPanel';
+import DeliverySelect from '../components/DeliverySelect';
+import UrgencySelect from '../components/UrgencySelect';
+import ReplyTab from './ReplyTab';
 
-import { NOT_URGENT } from '../constants/urgency'
+import { NOT_URGENT } from '../constants/urgency';
 
-const url = 'http://localhost:3001/api/public/0b66976c-4168-48ed-86b6-be5161609e7e.stl'
+const url = 'http://localhost:3001/api/public/0b66976c-4168-48ed-86b6-be5161609e7e.stl';
 
 export default function Home() {
-  const height = use100vh()
+  const height = use100vh();
 
-  const [preview_stl_url, setPreviewStlUrl] = React.useState(url)
-  const [stl_base64, setStlBase64] = React.useState()
-  const [quote_reply, setQuoteReply] = useState()
-  const [infill, setInfill] = useState(0.25)
+  const [preview_stl_url, setPreviewStlUrl] = React.useState(url);
+  const [stl_base64, setStlBase64] = React.useState();
+  const [quote_reply, setQuoteReply] = useState();
+  const [infill, setInfill] = useState(0.25);
 
   const formik = useFormik({
     initialValues: { stl_file: '', quantity: 1, infill: 0.25, urgency: NOT_URGENT },
     onSubmit: async values => {
-      let post_values = { ...values, stl_file: stl_base64 }
-      let response = await axios.post('/api/upload-stl-base64', post_values)
+      let post_values = { ...values, stl_file: stl_base64 };
+      let response = await axios.post('/api/upload-stl-base64', post_values);
 
-      let { orphan_url } = response.data
-      setPreviewStlUrl(orphan_url)
-      setQuoteReply(response.data)
+      let { orphan_url } = response.data;
+      setPreviewStlUrl(orphan_url);
+      setQuoteReply(response.data);
     },
-  })
+  });
 
-  const [print_info, setPrintInfo] = useState()
+  const [print_info, setPrintInfo] = useState();
 
-  const [isSSR, setIsSSR] = useState(true)
+  const [isSSR, setIsSSR] = useState(true);
   useEffect(() => {
-    setIsSSR(false)
-  }, [])
+    setIsSSR(false);
+  }, []);
 
-  const [active_tab, setActiveTab] = React.useState(0)
+  const [active_tab, setActiveTab] = React.useState(0);
 
   return (
     <>
@@ -81,15 +81,9 @@ export default function Home() {
                   <Stack direction="column">
                     <Grid container spacing={4}>
                       <Grid item xs={4} container spacing={2}>
-                        <Typography variant="h6">
-                          upload stl file upload thingiverse link
-                        </Typography>
+                        <Typography variant="h6">upload stl file upload thingiverse link</Typography>
                         <PreviewStl preview_stl_url={preview_stl_url} />
-                        <UploadStl
-                          setPreviewStlUrl={setPreviewStlUrl}
-                          stl_base64={stl_base64}
-                          setStlBase64={setStlBase64}
-                        />
+                        <UploadStl setPreviewStlUrl={setPreviewStlUrl} stl_base64={stl_base64} setStlBase64={setStlBase64} />
                       </Grid>
 
                       <Grid item xs={4} container spacing={2}>
@@ -136,9 +130,7 @@ export default function Home() {
                         <Grid item xs={12}>
                           <Box>
                             <Typography variant="h6">STL:</Typography>
-                            <Typography variant="h6">
-                              http://localhost:3001/api/public/1ff77355-c4b8-45a1-a36d-2fd3c51fd547.stl
-                            </Typography>
+                            <Typography variant="h6">http://localhost:3001/api/public/1ff77355-c4b8-45a1-a36d-2fd3c51fd547.stl</Typography>
                             <Typography variant="h6">0.3mm</Typography>
                             <Typography variant="h6">25% infill</Typography>
                             <Typography variant="h6">PLA 灰</Typography>
@@ -149,6 +141,7 @@ export default function Home() {
                         </Grid>
                       </Grid>
                     </Grid>
+                    <Box>We accept stripe</Box>
 
                     <Copyright />
                   </Stack>
@@ -169,5 +162,5 @@ export default function Home() {
         <></>
       )}
     </>
-  )
+  );
 }
