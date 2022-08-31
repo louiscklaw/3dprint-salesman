@@ -23,6 +23,7 @@
     "into_cms_app": "yarn docker_compose exec -it cms-app bash",
     "into_frontend": "yarn docker_compose exec -it frontend bash",
     "into_backend": "yarn docker_compose exec -it backend bash",
+    "into_docusaurus":"yarn docker_compose exec -it docusaurus bash",
     "kill_dev": "yarn docker_compose kill",
     "show_log": "yarn docker_compose logs -f ",
     "show_api_log": "yarn docker_compose logs -f api",
