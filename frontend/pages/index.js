@@ -40,7 +40,7 @@ function QuoteTab() {
       quantity: 1,
       infill: 0.25,
       urgency: CONST_URGENCY.NOT_URGENT,
-      delivery_options: CONST_DELIVERY_OPTIONS.KWUN_TONG_MTR,
+      delivery: CONST_DELIVERY_OPTIONS.KWUN_TONG_MTR,
       hello: 'world',
     },
     onSubmit: async values => {
@@ -97,9 +97,9 @@ function QuoteTab() {
                 </Grid>
               </Grid>
 
-              <Grid item xs={4} container spacing={3}>
+              <Grid item xs={4} container spacing={1}>
                 <Grid item xs={12}>
-                  <Typography variant="h6">print information</Typography>
+                  <Typography variant="h6">reply consider</Typography>
                 </Grid>
                 <Grid item xs={12}>
                   <Box>
