@@ -34,6 +34,8 @@ function QuoteTab() {
   const [quote_reply, setQuoteReply] = useState();
   const [infill, setInfill] = useState(0.25);
 
+  const [api_response, setApiResponse] = useState({});
+
   const formik = useFormik({
     initialValues: {
       stl_file: '',
@@ -50,7 +52,7 @@ function QuoteTab() {
       let { orphan_url } = response.data;
       setPreviewStlUrl(orphan_url);
       setQuoteReply(response.data);
-      console.log({ formik_values: values });
+      setApiResponse(response.data);
     },
   });
 
@@ -101,6 +103,9 @@ function QuoteTab() {
                 <Grid item xs={12}>
                   <Typography variant="h6">reply consider</Typography>
                 </Grid>
+                <DebugShow>
+                  <Grid>{JSON.stringify({ api_response }, null, 2)}</Grid>
+                </DebugShow>
                 <Grid item xs={12}>
                   <Box>
                     <Typography variant="h6">拆扣 ?</Typography>
