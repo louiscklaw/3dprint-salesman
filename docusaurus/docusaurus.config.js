@@ -9,7 +9,7 @@ const config = {
   title: '3d print salesman',
   tagline: 'documentation of 3d print salesman',
   url: 'https://louiscklaw.github.io',
-  baseUrl: '/documentation/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',

@@ -10,10 +10,10 @@ Let's discover **Docusaurus in less than 5 minutes**.
 
 ### frontend
 
-http://localhost:3001
+[http://localhost:3001](http://localhost:3001)
 
 ### backend
 
-http://localhost:3002
+[http://localhost:3002](http://localhost:3002)
 
 ### api endpoints
