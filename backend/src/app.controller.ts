@@ -143,6 +143,7 @@ function getPrintQuote(stl_file_path, quantity, infill, uuid_filename, urgency) 
     result: 'uploaded',
     orphan: `${uuid_filename}.stl`,
     orphan_url: `http://localhost:3001/api/public/${uuid_filename}.stl`,
+    order_input: { stl_file_path, quantity, infill, uuid_filename, urgency },
     charge: {
       quantity,
       infill,
