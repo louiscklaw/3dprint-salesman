@@ -21,6 +21,7 @@ import UrgencySelect from '../components/UrgencySelect';
 import ReplyTab from './ReplyTab';
 
 import CONST_URGENCY from '../constants/urgency';
+import CONST_DELIVERY_OPTIONS from '../constants/delivery_options';
 import DebugShow from '../components/DebugShow';
 
 const url = 'http://localhost:3001/api/public/0b66976c-4168-48ed-86b6-be5161609e7e.stl';
@@ -33,10 +34,15 @@ function QuoteTab() {
   const [quote_reply, setQuoteReply] = useState();
   const [infill, setInfill] = useState(0.25);
 
-  const [debug_value, setDebugValue] = useState('helloworld');
-
   const formik = useFormik({
-    initialValues: { stl_file: '', quantity: 1, infill: 0.25, urgency: CONST_URGENCY.NOT_URGENT, hello: 'world' },
+    initialValues: {
+      stl_file: '',
+      quantity: 1,
+      infill: 0.25,
+      urgency: CONST_URGENCY.NOT_URGENT,
+      delivery_options: CONST_DELIVERY_OPTIONS.KWUN_TONG_MTR,
+      hello: 'world',
+    },
     onSubmit: async values => {
       let post_values = { ...values, stl_file: stl_base64 };
       let response = await axios.post('/api/upload-stl-base64', post_values);
