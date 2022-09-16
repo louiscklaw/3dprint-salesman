@@ -36,7 +36,7 @@ const UploadStlForm = ({ setPreviewStlUrl, stl_base64, setStlBase64 }) => {
           />
         </Button>
 
-        <Typography variant="body1">/home/logic/_workspace/3dprint-salesman/test_stl/100_100_100.stl</Typography>
+        <Typography variant="body1">/home/logic/_workspace/3dprint-salesman/test_stl</Typography>
 
         {/* <Button onClick={handleUploadStl}>Upload</Button> */}
       </Stack>
