@@ -20,10 +20,10 @@ const UploadStlForm = ({ setPreviewStlUrl, stl_base64, setStlBase64 }) => {
           <Typography variant="body2">Choose STL</Typography>
 
           <input
-            name="avatar"
-            accept="application/octet-stream"
-            id="contained-button-file"
             type="file"
+            name="avatar"
+            id="contained-button-file"
+            accept="application/octet-stream"
             hidden
             onChange={e => {
               const fileReader = new FileReader();
