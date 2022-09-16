@@ -1,10 +1,7 @@
-import * as React from 'react';
-import { Button, Box, Typography } from '@mui/material';
-import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import { Button, Typography } from '@mui/material';
 import Stack from '@mui/material/Stack';
-import { useFormik } from 'formik';
 import axios from 'axios';
+import * as React from 'react';
 import DebugShow from './DebugShow';
 
 const UploadStlForm = ({ setPreviewStlUrl, stl_base64, setStlBase64 }) => {
