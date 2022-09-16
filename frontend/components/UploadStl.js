@@ -5,6 +5,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import { useFormik } from 'formik';
 import axios from 'axios';
+import DebugShow from './DebugShow';
 
 const UploadStlForm = ({ setPreviewStlUrl, stl_base64, setStlBase64 }) => {
   const handleUploadStl = async () => {
@@ -35,8 +36,9 @@ const UploadStlForm = ({ setPreviewStlUrl, stl_base64, setStlBase64 }) => {
             }}
           />
         </Button>
-
-        <Typography variant="body1">/home/logic/_workspace/3dprint-salesman/test_stl</Typography>
+        <DebugShow>
+          <Typography variant="body1">/home/logic/_workspace/3dprint-salesman/test_stl</Typography>
+        </DebugShow>
 
         {/* <Button onClick={handleUploadStl}>Upload</Button> */}
       </Stack>
