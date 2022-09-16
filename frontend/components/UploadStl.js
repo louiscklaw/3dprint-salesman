@@ -23,7 +23,7 @@ const UploadStlForm = ({ setPreviewStlUrl, stl_base64, setStlBase64 }) => {
             type="file"
             name="avatar"
             id="contained-button-file"
-            accept="application/octet-stream"
+            accept=".stl"
             hidden
             onChange={e => {
               const fileReader = new FileReader();
