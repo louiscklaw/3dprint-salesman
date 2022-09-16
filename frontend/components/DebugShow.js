@@ -6,5 +6,11 @@ export default ({ children }) => {
   if (!isDevelopment()) {
     return <></>;
   }
-  return <>{children}</>;
+  return (
+    <>
+      <div style={{ backgroundColor: 'gold' }}>
+        <pre>{children}</pre>
+      </div>
+    </>
+  );
 };
