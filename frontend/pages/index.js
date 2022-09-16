@@ -33,6 +33,8 @@ function QuoteTab() {
   const [quote_reply, setQuoteReply] = useState();
   const [infill, setInfill] = useState(0.25);
 
+  const [debug_value, setDebugValue] = useState('helloworld');
+
   const formik = useFormik({
     initialValues: { stl_file: '', quantity: 1, infill: 0.25, urgency: CONST_URGENCY.NOT_URGENT, hello: 'world' },
     onSubmit: async values => {
@@ -119,7 +121,7 @@ function QuoteTab() {
         </Container>
       </form>
 
-      <DebugShow>{JSON.stringify(formik.value, null, 2)}</DebugShow>
+      <DebugShow>{JSON.stringify({ formik: formik.values }, null, 2)}</DebugShow>
     </>
   );
 }
