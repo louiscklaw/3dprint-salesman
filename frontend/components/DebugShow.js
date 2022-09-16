@@ -1,15 +1,10 @@
-export default ({ children }) => {
-  console.log(
-    JSON.stringify({
-      debug_show: process.env.NEXT_PUBLIC_ENVIRONMENT,
-    }),
-  );
+function isDevelopment() {
+  return process.env.NEXT_PUBLIC_ENVIRONMENT == 'development';
+}
 
-  return (
-    <>
-      helloworld
-      <pre>{JSON.stringify(process.env)}</pre>
-    </>
-  );
-  return <>Debug show</>;
+export default ({ children }) => {
+  if (!isDevelopment()) {
+    return <></>;
+  }
+  return <>{children}</>;
 };
