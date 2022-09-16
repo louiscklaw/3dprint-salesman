@@ -14,7 +14,7 @@ export default function DeliverySelect({ formik }) {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl sx={{ m: 1, minWidth: 120 }} fullWidth>
-        <Select value={delivery} onChange={handleChange} displayEmpty inputProps={{ 'aria-label': 'Without label' }}>
+        <Select value={formik.values.delivery} onChange={handleChange} displayEmpty inputProps={{ 'aria-label': 'Without label' }}>
           <MenuItem value={DELIVERY_OPTIONS.KWUN_TONG_MTR}>觀塘站</MenuItem>
           <MenuItem value={DELIVERY_OPTIONS.GREEN_LINE}>地鐵綠色線交收</MenuItem>
           <MenuItem value={DELIVERY_OPTIONS.ANYWHERE_ELSE}>其他地點</MenuItem>
