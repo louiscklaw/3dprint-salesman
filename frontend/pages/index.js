@@ -133,6 +133,8 @@ function QuoteTab() {
               </Stack>
             </Container>
           </form>
+
+          <pre>{JSON.stringify(formik.values, null, 2)}</pre>
         </>
       )}
     </>
